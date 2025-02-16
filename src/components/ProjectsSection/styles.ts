@@ -267,17 +267,24 @@ export const ReadMoreButton = styled.button`
   transition: all 0.2s ease;
   font-size: 0.8rem;
   margin-top: 8px;
-  max-width: 7%;
+  max-width: 70px;
+  width: auto;
+  text-align: center;
 
   &:hover {
     background: ${({ theme }) =>
       theme?.colors?.primary ||
-      "#linear-gradient(to right, rgb(188, 188, 188), rgb(84, 84, 84));"}; /* Fundo colorido ao passar o mouse */
-    color: white; /* Texto branco ao passar o mouse */
-    border-color: transparent; /* Remove a borda ao passar o mouse */
+      "linear-gradient(to right, rgb(188, 188, 188), rgb(84, 84, 84));"};
+    color: white;
+    border-color: transparent;
   }
 
   &:active {
-    transform: scale(0.98); /* Efeito de clique sutil */
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.7rem;
+    padding: 6px 12px;
   }
 `;

@@ -34,12 +34,6 @@ const ProjectsSection = () => {
   }>({});
 
   const handleToggleReadMore = (projectId: string) => {
-    console.log(
-      "Projeto:",
-      projectId,
-      "Expansão:",
-      !expandedProjects[projectId]
-    );
     setExpandedProjects((prev) => ({
       ...prev,
       [projectId]: !prev[projectId], // Alterna entre expandir e esconder
