@@ -1,4 +1,4 @@
-# Documentação do Portfólio
+
 
 ## Visão Geral
 Este projeto é um portfólio desenvolvido utilizando **React**, **TypeScript** e **Styled Components** para a estilização. O armazenamento de dados é feito no **Supabase**, proporcionando uma solução eficiente para gerenciamento de informações.
