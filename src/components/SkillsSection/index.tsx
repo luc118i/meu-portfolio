@@ -95,7 +95,7 @@ const skillsCategories = [
 function SkillsSection() {
   return (
     <SkillsContainer>
-      <h2>Minhas Skills</h2>
+      <h2>Minhas Skills:</h2>
       {skillsCategories.map((category, idx) => (
         <CategoryContainer key={idx}>
           <CategoryTitle>{category.category}</CategoryTitle>

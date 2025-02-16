@@ -12,6 +12,7 @@ export const CategoryContainer = styled.div`
 export const CategoryTitle = styled.h3`
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  margin: 10px;
 `;
 
 export const SkillsList = styled.ul`
@@ -26,11 +27,11 @@ export const SkillsList = styled.ul`
 export const SkillItem = styled.li`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #f0f0f0;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  border-radius: 5%;
+  background: transparent;
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.1);
