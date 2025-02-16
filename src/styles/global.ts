@@ -1,12 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import "github-markdown-css";
 
 export const GlobalStyle = createGlobalStyle`
-  @font-face {
-  font-family: 'Vintages';
-  src: url('./assets/fonts/Vintages.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 
   * {

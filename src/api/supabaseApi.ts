@@ -12,6 +12,7 @@ export const fetchWithAuth = async (url: string) => {
     headers: {
       Authorization: `token ${GITHUB_TOKEN}`,
       Accept: "application/vnd.github.v3+json",
+      "Accept-Charset": "UTF-8",
     },
   });
 };
@@ -109,7 +110,8 @@ export const updateProjectData = async (
   projectId: number,
   firstCommitDate: string | null,
   lastCommitDate: string | null,
-  languages: string[] | null
+  languages: string[] | null,
+  fullDescription: string
 ) => {
   const { error } = await supabase
     .from("meus-projetos")
@@ -120,7 +122,8 @@ export const updateProjectData = async (
       last_commit_date: lastCommitDate
         ? new Date(lastCommitDate).toISOString()
         : null,
-      languages, // <-- passe o array diretamente
+      languages,
+      full_description: fullDescription,
     })
     .eq("id", projectId);
 
@@ -147,12 +150,14 @@ export const fetchProjects = async () => {
       const firstCommitDate = await getFirstCommitDate(project.link_git);
       const lastCommitDate = await getLastCommitDate(project.link_git);
       const languages = await getRepoLanguages(project.link_git);
+      const readme = await getRepoReadme(project.link_git);
 
       await updateProjectData(
         project.id,
         firstCommitDate,
         lastCommitDate,
-        languages
+        languages,
+        readme
       );
     }
   }
@@ -166,4 +171,32 @@ export const fetchProjects = async () => {
     return projects;
   }
   return updatedProjects;
+};
+
+// Buscar o conteúdo do README.md do repositório
+export const getRepoReadme = async (link_git: string): Promise<string> => {
+  if (!link_git) {
+    console.error("Erro: link_git está indefinido ou nulo.");
+    return "";
+  }
+  try {
+    const match = link_git.match(/github\.com\/([^/]+)\/([^/]+)/);
+    if (!match) return "";
+    const owner = match[1];
+    const repo = match[2];
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/readme`;
+    const response = await fetchWithAuth(apiUrl);
+    if (!response.ok) throw new Error("Erro ao buscar README");
+    const data = await response.json();
+    if (data.content && data.encoding === "base64") {
+      const decodedContent = atob(data.content);
+      const utf8Content = decodeURIComponent(escape(decodedContent));
+      return utf8Content;
+    }
+
+    return "";
+  } catch (error) {
+    console.error("Erro ao buscar README do repositório:", error);
+    return "";
+  }
 };

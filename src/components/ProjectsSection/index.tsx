@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { fetchProjects } from "../../api/supabaseApi";
 import {
   CloseButton,
+  Container,
   FullscreenImage,
   FullscreenOverlay,
   LoadingContainer,
@@ -16,6 +17,12 @@ import { Project } from "../../types/types";
 import languageIcons from "../../services/languageIcons";
 import { DotLoader } from "react-spinners";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+
+import remarkGfm from "remark-gfm";
+import "github-markdown-css";
+import ReactMarkdown from "react-markdown";
+
+import rehypeRaw from "rehype-raw";
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -117,7 +124,7 @@ const ProjectsSection = () => {
   }
 
   return (
-    <section>
+    <Container>
       <SectionTitle>Meus Projetos</SectionTitle>
       <ProjectsContainer>
         {projects.map((project) => {
@@ -128,7 +135,16 @@ const ProjectsSection = () => {
               <h3>{project.name}</h3>
               <p>{project.description}</p>
 
-              {isExpanded && <p>{project.full_description}</p>}
+              {isExpanded && (
+                <div className="markdown-body descriptionMore">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {project.full_description || ""}
+                  </ReactMarkdown>
+                </div>
+              )}
 
               <ReadMoreButton onClick={() => handleToggleReadMore(project.id)}>
                 {isExpanded ? (
@@ -245,7 +261,7 @@ const ProjectsSection = () => {
           <FullscreenImage src={selectedImage} alt="Imagem em tela cheia" />
         </FullscreenOverlay>
       )}
-    </section>
+    </Container>
   );
 };
 

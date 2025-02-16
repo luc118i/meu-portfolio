@@ -1,8 +1,13 @@
 import { styled } from "styled-components";
 
+export const Container = styled.div`
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
 // Container para a seção de projetos
 export const ProjectsContainer = styled.div`
-  background-color: rgb(69, 69, 69);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -23,7 +28,7 @@ export const SectionTitle = styled.h2`
 // Card individual de cada projeto
 export const ProjectCard = styled.div`
   background: rgb(69, 69, 69);
-  padding: 20px;
+  padding: 15px;
   width: 100%;
   max-width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -33,6 +38,49 @@ export const ProjectCard = styled.div`
   position: relative;
 
   gap: 20px;
+
+  .descriptionMore {
+    margin: 20px 0;
+    padding: 20px 30px; /* 20px em cima/baixo e 30px nas laterais */
+    border-left: 4px solid #00adb5;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-family: "Roboto", serif;
+
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .markdown-body img {
+    max-height: 24px;
+    vertical-align: middle;
+  }
+
+  .markdown-body svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .markdown-body {
+    font-size: 16px;
+  }
+  .markdown-body p {
+    line-height: 1.5;
+  }
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    margin: 1em 0 0.5em;
+  }
+
+  .markdown-body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
 
   img {
     width: 250px;
@@ -53,6 +101,7 @@ export const ProjectCard = styled.div`
     font-size: 1.5rem;
     color: rgb(224, 207, 207);
     margin-bottom: 10px; /* Aumentando a margem inferior para dar mais espaço */
+    font-family: "Roboto Mono", serif;
   }
 
   .description {
@@ -65,6 +114,7 @@ export const ProjectCard = styled.div`
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: "Roboto", serif;
 
     &.expanded {
       -webkit-line-clamp: unset;
@@ -222,7 +272,7 @@ export const ReadMoreButton = styled.button`
   &:hover {
     background: ${({ theme }) =>
       theme?.colors?.primary ||
-      "#123abc"}; /* Fundo colorido ao passar o mouse */
+      "#linear-gradient(to right, rgb(188, 188, 188), rgb(84, 84, 84));"}; /* Fundo colorido ao passar o mouse */
     color: white; /* Texto branco ao passar o mouse */
     border-color: transparent; /* Remove a borda ao passar o mouse */
   }
